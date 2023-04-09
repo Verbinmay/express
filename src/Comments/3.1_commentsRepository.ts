@@ -1,5 +1,5 @@
 import {CommentModelClass} from "../db";
-import {mapUser} from "../functions";
+import { mapUser } from "../map";
 import {injectable} from "inversify";
 
 @injectable()

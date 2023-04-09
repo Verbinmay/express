@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import {UsersRepository} from "./3.1_usersRepository";
-import {mapUser} from "../functions";
+import { mapUser } from "../map";
 import {PaginatorStart, PaginatorUser} from "../Paginator/paginatorType";
 import {countTotalAndPages, createFilterSort} from "../Paginator/paginator";
 import {UserModelClass} from "../db";

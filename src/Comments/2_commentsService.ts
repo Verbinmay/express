@@ -1,4 +1,4 @@
-import {mapComment, mapCommentWithLike} from "../functions";
+import { mapComment, mapCommentWithLike } from "../map";
 import {CommentDBModel} from "./4_commentsType";
 import {CommentsRepository} from "./3.1_commentsRepository";
 import {CommentsQRepository} from "./3.0_commentsQueryRepository";

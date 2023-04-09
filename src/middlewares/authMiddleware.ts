@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
-import { jwtService } from "../functions";
+import { jwtService } from "../composition-root";
 
 
 export const AccessTokenMiddleware = async (

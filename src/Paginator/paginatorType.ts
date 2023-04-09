@@ -2,7 +2,7 @@ import {BlogViewModel} from "../Blogs/4_blogsType";
 import {CommentViewModel, CommentWithLikeViewModel} from "../Comments/4_commentsType";
 import {PostViewModel} from "../Posts/4_postsType";
 import {UserViewModel} from "../Users/4_userType";
-import {mapCommentWithLike} from "../functions";
+import { mapCommentWithLike } from "../map";
 
 export type PaginatorStart = {
     searchNameTerm: string | null;

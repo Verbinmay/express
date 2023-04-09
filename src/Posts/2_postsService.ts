@@ -7,7 +7,7 @@ import {
 import {countTotalAndPages, createFilterSort} from "../Paginator/paginator";
 import {CommentModelClass, PostModelClass} from "../db";
 import {PostDBModel, PostViewModel} from "./4_postsType";
-import {mapComment, mapCommentWithLike, mapPost} from "../functions";
+import { mapComment, mapCommentWithLike, mapPost } from "../map";
 import {BlogViewModel} from "../Blogs/4_blogsType";
 import {CommentDBModel, CommentViewModel, CommentWithLikeViewModel} from "../Comments/4_commentsType";
 import {UserDBModel, UserViewModel} from "../Users/4_userType";

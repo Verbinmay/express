@@ -1,15 +1,14 @@
 import {PaginatorBlog, PaginatorPost, PaginatorStart} from "../Paginator/paginatorType";
 import {countTotalAndPages, createFilterSort} from "../Paginator/paginator";
 import {BlogModelClass, PostModelClass} from "../db";
-import {mapBlog, mapPost} from "../functions";
 import {BlogDBModel, BlogViewModel} from "./4_blogsType";
-
 import {PostDBModel, PostViewModel} from "../Posts/4_postsType";
 import {BlogsRepository} from "./3.1_blogsRepository";
 import {BlogsQRepository} from "./3.0_blogQueryRepository";
 import {ObjectId} from "mongodb";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../iocTYPES";
+import { mapBlog, mapPost } from "../map";
 
 @injectable()
 export class BlogsService {

@@ -29,11 +29,16 @@ import {SecurityDevicesQRepository} from "./SecurityDevices/3.0_securityDevicesQ
 import {UsersController} from "./Users/1.1_usersController";
 import {TYPES} from "./iocTYPES";
 
+
+
 export let container = new Container()
 
 //JWT
 container.bind<JwtService>(TYPES.JwtService).to(JwtService)
 
+export const securityDevicesRepository = new SecurityDevicesRepository
+
+export const jwtService = new JwtService(securityDevicesRepository)
 //BLOGS
 container.bind<BlogsController>(TYPES.BlogsController).to(BlogsController)
 container.bind<BlogsService>(TYPES.BlogsService).to(BlogsService)

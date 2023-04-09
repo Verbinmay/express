@@ -1,7 +1,7 @@
 import {JwtPayload} from "jsonwebtoken";
 import {SecurityDevicesRepository} from "./3.1_securityDevicesRepository";
 import {SecurityDevicesQRepository} from "./3.0_securityDevicesQueryRepository";
-import {mapSecurityDevices} from "../functions";
+import { mapSecurityDevices } from "../map";
 import {SecurityDevicesDBModel} from "./4_securityDevicesType";
 import {JwtService} from "../JWT/jwtService";
 import {inject, injectable} from "inversify";
