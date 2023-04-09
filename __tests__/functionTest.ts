@@ -42,7 +42,7 @@ export function testInputInfoBlog() {
 
 export async function testCreateBlogs(number: number) {
 
-    let blogs = []
+    let blogs:any = []
     for (let i = 0; i < number; i++) {
         const createdBlog = {
             name: faker.word.noun(6),
@@ -72,7 +72,7 @@ export function testInputInfoPost() {
 
 export async function testCreatePosts(a: { number: number, blog: BlogViewModel }) {
 
-    let posts = []
+    let posts:any = []
     for (let i = 0; i < a.number; i++) {
         const createdPost = {
             title: faker.word.noun(6),
@@ -104,7 +104,7 @@ export function testInputInfoUser() {
 
 export async function testCreateUsers(number: number) {
 
-    let users = []
+    let users:any = []
     for (let i = 0; i < number; i++) {
         const createdPost = testInputInfoUser()
 
@@ -113,7 +113,8 @@ export async function testCreateUsers(number: number) {
             .set("Authorization", info.headers.authorization)
             .send(createdPost)
             .expect(201)
-        users.push(result.body)
+    if(result.body)
+       { users.push(result.body)}
     }
 
     return users
@@ -130,7 +131,7 @@ export function testInputInfoComments() {
 
 export async function testCreateComments(a: { number: number, post: PostViewModel }) {
 
-    let comments = []
+    let comments:any = []
     for (let i = 0; i < a.number; i++) {
         const inputInfoUser = testInputInfoUser()
         const inputInfoComment = testInputInfoComments()

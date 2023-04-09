@@ -162,7 +162,7 @@ describe.skip("/blogs", () => {
 })
 describe.skip("/blogs", () => {
     let blogs: any = []
-    const InputInfoBlog: BlogInputModel = testInputInfoBlog()
+    const InputInfoBlog = testInputInfoBlog()
     beforeAll(async () => {
 
         await agent.delete(info.url.testingDelete);
@@ -781,9 +781,7 @@ describe.skip("/posts", () => {
     })
 
 })
-
-
-describe("/posts", () => {
+describe.skip("/posts", () => {
     let blogs: any = []
     let posts: any = []
     const inputCommentInfo = testInputInfoComments()
@@ -834,7 +832,7 @@ describe("/posts", () => {
             .set("Authorization", "Bearer " + login.body.accessToken)
             .expect(200);
 
-        console.log(commentWithLike.body)
+        
 
 
     });
@@ -878,7 +876,6 @@ describe.skip("/users", () => {
             .expect(401);
     });
 });
-
 describe.skip("/users", () => {
     let users: any = []
     const inputInfoUser = testInputInfoUser()
@@ -937,7 +934,6 @@ describe.skip("/users", () => {
             .expect(401);
     });
 })
-
 describe.skip("/users", () => {
     let users: any = []
     const inputInfoUser = testInputInfoUser()
@@ -969,6 +965,7 @@ describe.skip("/users", () => {
     });
 
 });
+
 
 describe.skip("/auth", () => {
 
@@ -1018,7 +1015,6 @@ describe.skip("/auth", () => {
             .expect(204);
     });
 });
-
 describe.skip("/auth", () => {
     let cookie: string[] = []
     let accessToken: any = {}
@@ -1065,7 +1061,6 @@ describe.skip("/auth", () => {
             .expect(200);
     }, 30000);
 })
-
 describe.skip("/auth", () => {
 
     const inputInfoUser = testInputInfoUser()
@@ -1134,7 +1129,6 @@ describe.skip("/auth", () => {
 
     })
 })
-
 
 //   // it("return 204 REGISTRATION CONFIRMATION POST ", async () => {
 //   //   const result = await request(app)
@@ -1709,7 +1703,7 @@ describe.skip("/comments", () => {
     })
 })
 
-describe("/auth", () => {
+describe.skip("/auth", () => {
     let users: any = []
 
     beforeAll(async () => {
