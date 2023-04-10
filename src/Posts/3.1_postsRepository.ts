@@ -116,7 +116,10 @@ export class PostsRepository {
 
             return true
         } catch (e) {
+            console.log('catch E');
+            
             return false
+
         }
     }
 }
