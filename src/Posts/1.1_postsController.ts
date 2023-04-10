@@ -114,7 +114,7 @@ export class PostsController {
             res.sendStatus(404)
             return
         }
-        if( postFind.likesInfo.myStatus === req.body.likeStatus){
+        if( postFind.extendedLikesInfo.myStatus === req.body.likeStatus){
             res.sendStatus(204)
             return
         }

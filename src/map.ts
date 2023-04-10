@@ -35,8 +35,8 @@ export function mapPost(post: PostDBModel) {
 
 
 export function mapPostWithLike(a: { post: PostDBModel; id: string; }) {
-    let likeArr = a.post.likesInfo.likesCount.filter(m=>m?.userId===a.id).length;
-    let dislikeArr =  a.post.likesInfo.dislikesCount.filter(m=>m?.userId===a.id).length;
+    let likeArr = a.post.extendedLikesInfo.likesCount.filter(m=>m?.userId===a.id).length;
+    let dislikeArr =  a.post.extendedLikesInfo.dislikesCount.filter(m=>m?.userId===a.id).length;
 
     
     let status = "";
@@ -56,11 +56,11 @@ export function mapPostWithLike(a: { post: PostDBModel; id: string; }) {
         blogId: a.post.blogId,
         blogName: a.post.blogName,
         createdAt: a.post.createdAt.toISOString(),
-        likesInfo: {
-            likesCount: a.post.likesInfo.likesCount.length,
-            dislikesCount: a.post.likesInfo.dislikesCount.length,
+        extendedLikesInfo: {
+            likesCount: a.post.extendedLikesInfo.likesCount.length,
+            dislikesCount: a.post.extendedLikesInfo.dislikesCount.length,
             myStatus: status,
-            newestLikes: a.post.likesInfo.likesCount.splice(-3)
+            newestLikes: a.post.extendedLikesInfo.likesCount.splice(-3)
         }
     };
     return result;

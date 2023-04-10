@@ -25,7 +25,7 @@ export type PostWithLikeViewModel = {
   blogId: string;
   blogName: string;
   createdAt: string;
-  likesInfo: {
+  extendedLikesInfo: {
     likesCount: number;
     dislikesCount: number;
     myStatus: string;
@@ -49,7 +49,7 @@ export class PostDBModel {
     public blogName: string,
     public createdAt: Date,
     public updatedAt: Date,
-    public likesInfo: {
+    public extendedLikesInfo: {
       likesCount: likeInfo[];
       dislikesCount: likeInfo[];
       myStatus: string;

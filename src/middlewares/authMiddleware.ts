@@ -1,7 +1,9 @@
 import { NextFunction, Response, Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
+import { container } from "../composition-root";
+import { JwtService } from "../JWT/jwtService";
 import { jwtService } from "../composition-root";
-
+// const jwtService = container.resolve(JwtService)
 
 export const AccessTokenMiddleware = async (
   req: Request,

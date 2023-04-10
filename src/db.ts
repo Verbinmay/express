@@ -30,7 +30,7 @@ const PostSchema = new mongoose.Schema<PostDBModel>({
     content: {type: String, required: true},
     blogId: {type: String, required: true},
     blogName: {type: String, required: true},
-    likesInfo: {
+    extendedLikesInfo: {
         likesCount: {type: Array, required: true},
         dislikesCount: {type: Array, required: true},
         myStatus: {type: String, required: true},
