@@ -109,7 +109,7 @@ export class PostsController {
     async updateLikeStatus(req: Request, res: Response) {
 
         const postFind: PostWithLikeViewModel | null =
-            await this.postsService.findPostById( req.params.postId, req.user.id);
+            await this.postsService.findPostById( req.params.postId, req.user.userId);
         if (!postFind) {
             console.log("postFind")
             res.sendStatus(404)
