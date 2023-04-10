@@ -34,7 +34,7 @@ export type PostWithLikeViewModel = {
 };
 
 export type likeInfo = {
-  addedAt: Date;
+  addedAt: string;
   userId: string;
   login: string;
 };

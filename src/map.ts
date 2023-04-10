@@ -60,7 +60,7 @@ export function mapPostWithLike(a: { post: PostDBModel; id: string; }) {
             likesCount: a.post.extendedLikesInfo.likesCount.length,
             dislikesCount: a.post.extendedLikesInfo.dislikesCount.length,
             myStatus: status,
-            newestLikes: a.post.extendedLikesInfo.likesCount.splice(-3)
+            newestLikes: a.post.extendedLikesInfo.likesCount.splice(-3).reverse()
         }
     };
     return result;

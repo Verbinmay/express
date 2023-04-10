@@ -218,7 +218,7 @@ export class PostsService {
       return false;
     }
     const likeInfo = {
-      addedAt: new Date(),
+      addedAt: new Date().toISOString(),
       userId: a.userId,
       login: user.login,
     };
