@@ -2,7 +2,7 @@ import {PostsService} from "./2_postsService";
 import {Request, Response} from "express";
 import {paginator} from "../Paginator/paginator";
 import {PaginatorCommentViewModel, PaginatorPost, PaginatorStart} from "../Paginator/paginatorType";
-import {PostViewModel} from "./4_postsType";
+import {PostViewModel, PostWithLikeViewModel} from "./4_postsType";
 import {CommentViewModel} from "../Comments/4_commentsType";
 import {getUserIdFromAccessToken} from "../functions";
 import {inject, injectable} from "inversify";
@@ -15,14 +15,15 @@ export class PostsController {
 
     async getPosts(req: Request, res: Response) {
         const paginatorInformation = paginator(req.query);
-
-        const postsGet: PaginatorPost = await this.postsService.findPosts(paginatorInformation);
+        const userId = await getUserIdFromAccessToken(req.headers.authorization)
+        const postsGet: PaginatorPost = await this.postsService.findPosts(paginatorInformation,userId);
 
         res.status(200).send(postsGet);
     }
 
     async getPost(req: Request, res: Response) {
-        const postGetById: PostViewModel | null = await this.postsService.findPostById(req.params.id);
+        const userId = await getUserIdFromAccessToken(req.headers.authorization)
+        const postGetById: PostViewModel | null = await this.postsService.findPostById(req.params.id,userId);
 
         if (postGetById) {
             res.status(200).send(postGetById);
@@ -32,11 +33,13 @@ export class PostsController {
     }
 
     async createPost(req: Request, res: Response) {
+        const userId = await getUserIdFromAccessToken(req.headers.authorization)
         const post: PostViewModel = await this.postsService.createPost({
             title: req.body.title,
             shortDescription: req.body.shortDescription,
             content: req.body.content,
-            blog: req.blog
+            blog: req.blog,
+            userId:userId
         });
         res.status(201).send(post);
     }
@@ -63,7 +66,8 @@ export class PostsController {
     }
 
     async createCommentByPostId(req: Request, res: Response) {
-        const post: PostViewModel | null = await this.postsService.findPostById(req.params.postId);
+        const userId = await getUserIdFromAccessToken(req.headers.authorization)
+        const post: PostViewModel | null = await this.postsService.findPostById(req.params.postId,userId);
 
         if (!post) {
             res.sendStatus(404);
@@ -80,13 +84,14 @@ export class PostsController {
     }
 
     async getCommentsByPostId(req: Request, res: Response) {
-        const post: PostViewModel | null = await this.postsService.findPostById(req.params.postId);
+        const userId = await getUserIdFromAccessToken(req.headers.authorization)
+        const post: PostViewModel | null = await this.postsService.findPostById(req.params.postId,userId);
 
         if (!post) {
             res.sendStatus(404);
             return
         }
-        const userId = await getUserIdFromAccessToken(req.headers.authorization)
+       
 
         const paginatorInformation: PaginatorStart = paginator(req.query);
 
@@ -100,5 +105,30 @@ export class PostsController {
 
         res.status(200).send(comments);
     }
+
+    async updateLikeStatus(req: Request, res: Response) {
+
+        const postFind: PostWithLikeViewModel | null =
+            await this.postsService.findPostById( req.params.postId, req.user.id);
+        if (!postFind) {
+            res.sendStatus(404)
+            return
+        }
+        if( postFind.likesInfo.myStatus === req.body.likeStatus){
+            res.sendStatus(204)
+            return
+        }
+
+        const postUpdateLikeStatus: boolean = await this.postsService.updatePostLikeStatus({
+            postId: req.params.postId,
+            likeStatus: req.body.likeStatus,
+            userId: req.user.userId
+        });
+
+        postUpdateLikeStatus ?
+            res.sendStatus(204) : res.sendStatus(404)
+
+    }
+
 
 }

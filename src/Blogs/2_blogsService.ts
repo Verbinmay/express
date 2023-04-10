@@ -8,7 +8,7 @@ import {BlogsQRepository} from "./3.0_blogQueryRepository";
 import {ObjectId} from "mongodb";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../iocTYPES";
-import { mapBlog, mapPost } from "../map";
+import { mapBlog, mapPost, mapPostWithLike } from "../map";
 
 @injectable()
 export class BlogsService {
@@ -111,7 +111,8 @@ export class BlogsService {
         blogName: string,
         title: string,
         shortDescription: string,
-        content: string
+        content: string,
+        userId:string
     }) {
         const createdPost = new PostDBModel(
             new ObjectId(),
@@ -122,15 +123,21 @@ export class BlogsService {
             a.blogName,
             new Date(),
             new Date(),
+            {
+                likesCount: [],
+                dislikesCount: [],
+                myStatus: "default",
+                newestLikes:[]
+            }
         )
 
         const result: PostDBModel = await this.blogsRepository.postPostByBlogId(createdPost);
-        return mapPost(result);
+        return mapPostWithLike({post:result,id:a.userId});
     }
 
 
     //GET POST BLOG ID
-    async findPostsByBlogId(a: { paginator: PaginatorStart, blogId: string }) {
+    async findPostsByBlogId(a: { paginator: PaginatorStart, blogId: string, userId:string }) {
         const filter: { blogId: string } = {blogId: a.blogId}
 
         const filterSort: { [x: string]: number } = createFilterSort({
@@ -152,7 +159,7 @@ export class BlogsService {
         })
 
         const posts: PostViewModel[] = postsFromDB.map(m => {
-            return mapPost(m)
+            return mapPostWithLike({post:m,id:a.userId})
         })
 
         const result: PaginatorPost = {

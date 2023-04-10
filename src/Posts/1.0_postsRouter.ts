@@ -6,6 +6,7 @@ import {
     contentValidation,
     inputValidationMiddleware,
     isBlogIdValidation,
+    likeStatusValidation,
     shortDescriptionValidation,
     titleValidation,
 } from "../middlewares/inputValidationMiddleware";
@@ -47,6 +48,16 @@ postsRouter.put(
     inputValidationMiddleware,
     postsController.updatePost.bind(postsController))
 
+
+    //PUT LIKESTATUS
+    postsRouter.put(
+    "/:postId/like-status",
+    AccessTokenMiddleware,
+    likeStatusValidation,
+    inputValidationMiddleware,
+    postsController.updateLikeStatus.bind(postsController))
+;
+
 //DELETE
 postsRouter.delete(
     "/:id",
@@ -64,3 +75,5 @@ postsRouter.post(
 
 //GET COMMENTS BY POST ID
 postsRouter.get("/:postId/comments", postsController.getCommentsByPostId.bind(postsController))
+
+

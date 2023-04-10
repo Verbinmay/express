@@ -64,4 +64,59 @@ export class PostsRepository {
 
         return result;
     }
+
+     //UPDATE LIKE STATUS
+     async updatePostLikeStatus(a: { postId: string, likeStatus: string, likeInfo: any}) {
+        try {
+            const result = await PostModelClass.findById(a.postId)
+
+            if (!result) return false
+
+
+            let likeArr = 0
+            let dislikeArr = 0
+
+            switch (a.likeStatus) {
+                case "None":
+                    likeArr = result.likesInfo.likesCount.findIndex(a.likeInfo);
+                    if (likeArr > -1) {
+                        result.likesInfo.likesCount.splice(likeArr, 1);
+                    }
+
+                    dislikeArr = result.likesInfo.dislikesCount.findIndex(a.likeInfo);
+                    if (dislikeArr > -1) {
+                        result.likesInfo.dislikesCount.splice(dislikeArr, 1);
+                    }
+
+                    break;
+                case"Like":
+                    dislikeArr = result.likesInfo.dislikesCount.findIndex(a.likeInfo);
+                    if (dislikeArr > -1) {
+                        result.likesInfo.dislikesCount.splice(dislikeArr, 1);
+                    }
+                    likeArr = result.likesInfo.likesCount.findIndex(a.likeInfo);
+                    if (likeArr <= -1) {
+                        result.likesInfo.likesCount.push(a.likeInfo);
+                    }
+
+                    break;
+                case"Dislike":
+                    likeArr = result.likesInfo.likesCount.findIndex(a.likeInfo);
+                    if (likeArr > -1) {
+                        result.likesInfo.likesCount.splice(likeArr, 1);
+                    }
+                    dislikeArr = result.likesInfo.dislikesCount.findIndex(a.likeInfo);
+                    if (dislikeArr <= -1) {
+                        result.likesInfo.dislikesCount.push(a.likeInfo);
+                    }
+                    break;
+            }
+
+            result.save()
+
+            return true
+        } catch (e) {
+            return false
+        }
+    }
 }

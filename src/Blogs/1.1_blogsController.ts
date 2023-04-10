@@ -6,6 +6,7 @@ import {BlogViewModel} from "./4_blogsType";
 import {PostViewModel} from "../Posts/4_postsType";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../iocTYPES";
+import { getUserIdFromAccessToken } from "../functions";
 
 @injectable()
 export class BlogsController {
@@ -54,12 +55,14 @@ export class BlogsController {
         const isBlog: BlogViewModel | null = await this.blogsService.findBlogById(req.params.blogId);
 
         if (isBlog) {
+            const userId = await getUserIdFromAccessToken(req.headers.authorization)
             const post: PostViewModel =
                 await this.blogsService.postPostByBlogId({
                     blogID: isBlog.id, blogName: isBlog.name,
                     title: req.body.title,
                     shortDescription: req.body.shortDescription,
-                    content: req.body.content
+                    content: req.body.content,
+                    userId:userId
                 });
             res.status(201).send(post);
         } else {
@@ -71,12 +74,15 @@ export class BlogsController {
 
         const paginatorInformation: PaginatorStart = paginator(req.query);
 
+        const userId = await getUserIdFromAccessToken(req.headers.authorization)
+
         const blogGetById: BlogViewModel | null = await this.blogsService.findBlogById(req.params.blogId);
 
         if (blogGetById) {
             const posts: PaginatorPost = await this.blogsService.findPostsByBlogId({
                 paginator: paginatorInformation,
-                blogId: blogGetById.id
+                blogId: blogGetById.id,
+                userId:userId
             });
             res.status(200).send(posts);
         } else {

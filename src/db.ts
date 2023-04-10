@@ -30,7 +30,14 @@ const PostSchema = new mongoose.Schema<PostDBModel>({
     content: {type: String, required: true},
     blogId: {type: String, required: true},
     blogName: {type: String, required: true},
+    likesInfo: {
+        likesCount: {type: Array, required: true},
+        dislikesCount: {type: Array, required: true},
+        myStatus: {type: String, required: true},
+        newestLikes:{type: Array, required: true}
+    }
 }, {timestamps: true})
+
 export const PostModelClass = mongoose.model("Posts", PostSchema)
 PostModelClass.watch().on('change', change => console.log(change));
 

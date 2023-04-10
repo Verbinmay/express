@@ -1,6 +1,6 @@
 
 import { BlogDBModel, BlogViewModel } from "./Blogs/4_blogsType";
-import { PostDBModel, PostViewModel } from "./Posts/4_postsType";
+import { PostDBModel, PostViewModel, PostWithLikeViewModel } from "./Posts/4_postsType";
 import { CommentDBModel, CommentViewModel, CommentWithLikeViewModel } from "./Comments/4_commentsType";
 import { UserDBModel, UserViewModel } from "./Users/4_userType";
 import { SecurityDevicesDBModel, SecurityDevicesViewModel } from "./SecurityDevices/4_securityDevicesType";
@@ -33,6 +33,39 @@ export function mapPost(post: PostDBModel) {
     return result;
 }
 
+
+export function mapPostWithLike(a: { post: PostDBModel; id: string; }) {
+    let likeArr = a.post.likesInfo.likesCount.filter(m=>m?.userId===a.id).length;
+    let dislikeArr =  a.post.likesInfo.dislikesCount.filter(m=>m?.userId===a.id).length;
+
+    
+    let status = "";
+    if (likeArr === dislikeArr) {
+        status = "None";
+    } else if (likeArr > dislikeArr) {
+        status = "Like";
+    } else {
+        status = "Dislike";
+    }
+
+    const result: PostWithLikeViewModel = {
+        id: a.post._id.toString(),
+        title: a.post.title,
+        shortDescription: a.post.shortDescription,
+        content: a.post.content,
+        blogId: a.post.blogId,
+        blogName: a.post.blogName,
+        createdAt: a.post.createdAt.toISOString(),
+        likesInfo: {
+            likesCount: a.post.likesInfo.likesCount.length,
+            dislikesCount: a.post.likesInfo.dislikesCount.length,
+            myStatus: status,
+            newestLikes: a.post.likesInfo.likesCount.splice(-3)
+        }
+    };
+    return result;
+}
+
 export function mapComment(comment: CommentDBModel) {
     const result: CommentViewModel = {
         id: comment._id.toString(),
@@ -51,7 +84,6 @@ export function mapCommentWithLike(a: { comment: CommentDBModel; id: string; }) 
     let likeArr = a.comment.likesInfo.likesCount.indexOf(a.id);
     let dislikeArr = a.comment.likesInfo.dislikesCount.indexOf(a.id);
 
-    console.log(a.comment.likesInfo, "HHHHH");
     let status = "";
     if (likeArr === dislikeArr) {
         status = "None";

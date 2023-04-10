@@ -68,12 +68,17 @@ export class CommentsController {
 
     async updateLikeStatus(req: Request, res: Response) {
 
-        const commentFind: CommentViewModel | null =
+        const commentFind: CommentWithLikeViewModel | null =
             await this.commentsService.findCommentById({commentId: req.params.commentId, userId: ""});
         if (!commentFind) {
             res.sendStatus(404)
             return
         }
+        if( commentFind.likesInfo.myStatus === req.body.likeStatus){
+            res.sendStatus(204)
+            return
+        }
+
 
         const commentUpdateLikeStatus: boolean = await this.commentsService.updateCommentLikeStatus({
             commentId: req.params.commentId,
