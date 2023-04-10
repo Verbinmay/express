@@ -214,6 +214,7 @@ export class PostsService {
   }) {
     const user = await this.usersQRepository.findUserById(a.userId);
     if (!user) {
+        console.log("user")
       return false;
     }
     const likeInfo = {

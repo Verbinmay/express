@@ -111,6 +111,7 @@ export class PostsController {
         const postFind: PostWithLikeViewModel | null =
             await this.postsService.findPostById( req.params.postId, req.user.id);
         if (!postFind) {
+            console.log("postFind")
             res.sendStatus(404)
             return
         }
