@@ -78,35 +78,40 @@ export class PostsRepository {
 
             switch (a.likeStatus) {
                 case "None":
-                    likeArr = result.extendedLikesInfo.likesCount.indexOf(a.likeInfo);
+                    likeArr = result.extendedLikesInfo.likesCount.findIndex(b => b.userId === a.likeInfo.userId);
 
                     if (likeArr > -1) {
                         result.extendedLikesInfo.likesCount.splice(likeArr, 1);
                     }
 
-                    dislikeArr = result.extendedLikesInfo.dislikesCount.indexOf(a.likeInfo);
+                    dislikeArr = result.extendedLikesInfo.dislikesCount.findIndex(b => b.userId === a.likeInfo.userId);
+
                     if (dislikeArr > -1) {
                         result.extendedLikesInfo.dislikesCount.splice(dislikeArr, 1);
                     }
 
                     break;
                 case"Like":
-                    dislikeArr = result.extendedLikesInfo.dislikesCount.indexOf(a.likeInfo);
+                    dislikeArr = result.extendedLikesInfo.dislikesCount.findIndex(b => b.userId === a.likeInfo.userId);
+
                     if (dislikeArr > -1) {
                         result.extendedLikesInfo.dislikesCount.splice(dislikeArr, 1);
                     }
-                    likeArr = result.extendedLikesInfo.likesCount.indexOf(a.likeInfo);
+                    likeArr = result.extendedLikesInfo.likesCount.findIndex(b => b.userId === a.likeInfo.userId);
+
                     if (likeArr <= -1) {
                         result.extendedLikesInfo.likesCount.push(a.likeInfo);
                     }
 
                     break;
                 case"Dislike":
-                    likeArr = result.extendedLikesInfo.likesCount.indexOf(a.likeInfo);
+                    likeArr = result.extendedLikesInfo.likesCount.findIndex(b => b.userId === a.likeInfo.userId);
+
                     if (likeArr > -1) {
                         result.extendedLikesInfo.likesCount.splice(likeArr, 1);
                     }
-                    dislikeArr = result.extendedLikesInfo.dislikesCount.indexOf(a.likeInfo);
+                    dislikeArr = result.extendedLikesInfo.dislikesCount.findIndex(b => b.userId === a.likeInfo.userId);
+
                     if (dislikeArr <= -1) {
                         result.extendedLikesInfo.dislikesCount.push(a.likeInfo);
                     }
