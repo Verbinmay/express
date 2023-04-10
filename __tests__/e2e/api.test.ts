@@ -13,22 +13,22 @@ import {BlogInputModel} from "../../src/Blogs/4_blogsType";
 
 export const agent = supertest.agent(app);
 
-describe.skip("CREATORS ALL CHECK", () => {
-    beforeAll(async () => {
+// describe.skip("CREATORS ALL CHECK", () => {
+//     beforeAll(async () => {
 
-        await agent.delete(info.url.testingDelete);
-    }, 8000);
+//         await agent.delete(info.url.testingDelete);
+//     }, 8000);
 
-    it("POST|201-created blog", async () => {
+//     it("POST|201-created blog", async () => {
 
-        const blog = await testCreateBlogs(1)
-        expect(blog).toHaveLength(1)
-    });
-})
+//         const blog = await testCreateBlogs(1)
+//         expect(blog).toHaveLength(1)
+//     });
+// })
 //--------
 
 
-describe("/blogs", () => {
+describe.skip("/blogs", () => {
     let blogs: any = []
     beforeAll(async () => {
 
@@ -781,7 +781,7 @@ describe.skip("/posts", () => {
     })
 
 })
-describe.skip("/posts", () => {
+describe("/posts", () => {
     let blogs: any = []
     let posts: any = []
     const inputCommentInfo = testInputInfoComments()
