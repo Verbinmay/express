@@ -2,7 +2,7 @@ import express from "express";
 import { runDb } from "./db";
 
 export const app = express()
-const port = process.env.PORT || 3003
+const port = process.env.PORT || 80
 ;
 
 export const setting = {
